@@ -165,10 +165,17 @@ int fdt_next_subnode(const void *fdt, int offset);
  * literal.
  *
  */
-#define fdt_for_each_subnode(node, fdt, parent)		\
+
+// MODIFICATION: converting "int" result of fdt_first_subnode to *void
+/*#define fdt_for_each_subnode(node, fdt, parent)		\
 	for (node = fdt_first_subnode(fdt, parent);	\
 	     node >= 0;					\
 	     node = fdt_next_subnode(fdt, node))
+*/
+#define fdt_for_each_subnode(node, fdt, parent)		\
+	for (node = (void*)fdt_first_subnode(fdt, parent);	\
+	     node >= 0;				\
+	     node = (void*)fdt_next_subnode(fdt, (int)node))
 
 /**********************************************************************/
 /* General functions                                                  */

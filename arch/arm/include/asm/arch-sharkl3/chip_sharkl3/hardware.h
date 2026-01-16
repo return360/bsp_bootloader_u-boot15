@@ -158,8 +158,9 @@
 #define SPRD_ADISLAVE_BASE                                 SPRD_ADISLAVE_PHYS
 /* referenced by sprd_bl.c */
 #define CTL_BASE_PWM                                       SPRD_PWM_PHYS
+// MODIFICATION: commenting this out (looks unnecessary), to avoid re-definition errors
 /* just tricky, on uart0 on sharkle */
-#define SPRD_UART0_PHYS                                    SPRD_UART1_PHYS
+//#define SPRD_UART0_PHYS                                    SPRD_UART1_PHYS
 #define SPRD_DSI_BASE                                      SPRD_DSI_PHYS
 #define REGS_AON_APB_BASE                                  SPRD_AONAPB_PHYS
 #endif

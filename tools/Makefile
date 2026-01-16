@@ -170,8 +170,19 @@ HOSTCFLAGS_sha256.o := -pedantic
 quiet_cmd_wrap = WRAP    $@
 cmd_wrap = echo "\#include <../$(patsubst $(obj)/%,%,$@)>" >$@
 
-$(obj)/lib/%.c $(obj)/common/%.c:
+# MODIFICATION: building the targets in two recipes, rather than in one.
+# --> that's supposedly the correct way to do it.
+####################################
+#$(obj)/lib/%.c $(obj)/common/%.c:
+#	$(call cmd,wrap)
+
+$(obj)/common/%.c:
 	$(call cmd,wrap)
+
+$(obj)/lib/%.c:
+	$(call cmd,wrap)
+
+####################################
 
 clean-dirs := lib common
 

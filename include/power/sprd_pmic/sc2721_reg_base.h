@@ -30,7 +30,11 @@
 #define ANA_AUDCFGA_BASE	(SPRD_ADISLAVE_BASE + 0x800 )
 #define ANA_FSCHG_BASE		(SPRD_ADISLAVE_BASE + 0x900 )
 #define ANA_FGU_BASE		(SPRD_ADISLAVE_BASE + 0xA00 )
+
+// MODIFICATION: avoiding redefinition
+#ifndef ANA_REGS_GLB_BASE
 #define ANA_REGS_GLB_BASE	(SPRD_ADISLAVE_BASE + 0xC00)
+#endif
 
 #define ANA_GPIO_INT_BASE      (SPRD_ADISLAVE_BASE + 0x480 )  //TODO2731 and 2723 need to remove
 

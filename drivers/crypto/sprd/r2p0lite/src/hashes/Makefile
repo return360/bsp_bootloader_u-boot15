@@ -25,5 +25,6 @@
 
 ccflags-y := -I$(srctree)/drivers/crypto/sprd/r2p0lite/inc
 
-obj-y += sprd_hash_test.o
+# MODIFICATION: commenting out _test
+#obj-y += sprd_hash_test.o
 obj-y += sprd_hash.o

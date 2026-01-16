@@ -146,6 +146,10 @@
  * Do the prototypes. Somebody might want to take the
  * address or some such sick thing..
  */
+
+// Modification: ASSEMBLER
+#if !defined(__ASSEMBLER__) ///////////////
+
 #if defined(__KERNEL__) || (defined (__GLIBC__) && __GLIBC__ >= 2)
 extern __u32			ntohl(__u32);
 extern __u32			htonl(__u32);
@@ -156,6 +160,7 @@ extern unsigned long int	htonl(unsigned long int);
 extern unsigned short int	ntohs(unsigned short int);
 extern unsigned short int	htons(unsigned short int);
 
+#endif //////////// end of modification
 
 #if defined(__GNUC__) && (__GNUC__ >= 2)
 

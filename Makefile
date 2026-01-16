@@ -133,8 +133,13 @@ ifneq ($(KBUILD_OUTPUT),)
 saved-output := $(KBUILD_OUTPUT)
 KBUILD_OUTPUT := $(shell mkdir -p $(KBUILD_OUTPUT) && cd $(KBUILD_OUTPUT) \
 								&& /bin/pwd)
+# MODIFICATION: rewrite
 $(if $(KBUILD_OUTPUT),, \
      $(error failed to create output directory "$(saved-output)"))
+
+# ifeq ($(KBUILD_OUTPUT),)
+# $(error failed to create output directory "$(saved-output)"))
+# endif
 
 PHONY += $(MAKECMDGOALS) sub-make
 
@@ -210,6 +215,10 @@ objtree		:= .
 src		:= $(srctree)
 obj		:= $(objtree)
 
+# $(warning srctree var : $(srctree) )
+# $(warning CONFIG_CPU var : $(CONFIG_CPU) )
+# $(warning CPU var : $(CPU) )
+
 VPATH		:= $(srctree)$(if $(KBUILD_EXTMOD),:$(KBUILD_EXTMOD))
 
 export srctree objtree VPATH
@@ -260,10 +269,12 @@ CONFIG_SHELL := $(shell if [ -x "$$BASH" ]; then echo $$BASH; \
 	  else if [ -x /bin/bash ]; then echo /bin/bash; \
 	  else echo sh; fi ; fi)
 
+# TODO: try changing to clang, clang++, if testing out android ndk toolchain
 HOSTCC       = cc
 HOSTCXX      = c++
+# MODIFICATION
 HOSTCFLAGS   = -Wall -Wstrict-prototypes -O2 -fomit-frame-pointer
-HOSTCXXFLAGS = -O2
+HOSTCXXFLAGS = -O2 -fno-pic
 
 ifeq ($(HOSTOS),cygwin)
 HOSTCFLAGS	+= -ansi
@@ -1195,6 +1206,7 @@ $(sort $(u-boot-init) $(u-boot-main)): $(u-boot-dirs) ;
 # make menuconfig etc.
 # Error messages still appears in the original language
 
+# TODO: make bootloader fails here.
 PHONY += $(u-boot-dirs)
 $(u-boot-dirs): prepare scripts
 	$(Q)$(MAKE) $(build)=$@

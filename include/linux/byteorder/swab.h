@@ -95,6 +95,8 @@
 #  define __swab64(x) __fswab64(x)
 #endif /* OPTIMIZE */
 
+// Modification: ASSEMBLER
+#if !defined(__ASSEMBLER__) ///////////////
 
 static __inline__ __attribute__((const)) __u16 __fswab16(__u16 x)
 {
@@ -140,6 +142,8 @@ static __inline__ void __swab64s(__u64 *addr)
 {
 	__arch__swab64s(addr);
 }
+
+#endif //////////// end of modification
 
 #if defined(__KERNEL__)
 #define swab16 __swab16

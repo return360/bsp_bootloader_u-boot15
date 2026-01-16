@@ -7,6 +7,9 @@
 
 #ifndef __KERNEL_STRICT_NAMES
 
+// Modification: ASSEMBLER
+#if !defined(__ASSEMBLER__) ///////////////
+
 typedef __kernel_fd_set		fd_set;
 typedef __kernel_dev_t		dev_t;
 typedef __kernel_ino_t		ino_t;
@@ -42,39 +45,63 @@ typedef __kernel_gid_t		gid_t;
 typedef __kernel_loff_t		loff_t;
 #endif
 
+#endif // End of MODIFICATION Assembler
+
 /*
  * The following typedefs are also protected by individual ifdefs for
  * historical reasons:
  */
 #ifndef _SIZE_T
 #define _SIZE_T
+// Modification: ASSEMBLER
+#if !defined(__ASSEMBLER__) ///////////////
 typedef __kernel_size_t		size_t;
+#endif //////////////
 #endif
 
 #ifndef _SSIZE_T
 #define _SSIZE_T
+// Modification: ASSEMBLER
+#if !defined(__ASSEMBLER__) ///////////////
 typedef __kernel_ssize_t	ssize_t;
+#endif //////////////
 #endif
 
 #ifndef _PTRDIFF_T
 #define _PTRDIFF_T
+// Modification: ASSEMBLER
+#if !defined(__ASSEMBLER__) ///////////////
 typedef __kernel_ptrdiff_t	ptrdiff_t;
+#endif ////////////
 #endif
 
 #ifndef _TIME_T
 #define _TIME_T
+// Modification: ASSEMBLER
+#if !defined(__ASSEMBLER__) ///////////////
 typedef __kernel_time_t		time_t;
+#endif ////////////
 #endif
 
 #ifndef _CLOCK_T
 #define _CLOCK_T
+// Modification: ASSEMBLER
+#if !defined(__ASSEMBLER__) ///////////////
 typedef __kernel_clock_t	clock_t;
+#endif ////////////
 #endif
 
 #ifndef _CADDR_T
 #define _CADDR_T
+// Modification: ASSEMBLER
+#if !defined(__ASSEMBLER__) ///////////////
 typedef __kernel_caddr_t	caddr_t;
+#endif ////////////
 #endif
+
+
+// Modification: ASSEMBLER
+#if !defined(__ASSEMBLER__) ///////////////
 
 /* bsd */
 typedef unsigned char		u_char;
@@ -88,18 +115,24 @@ typedef unsigned short		ushort;
 typedef unsigned int		uint;
 typedef unsigned long		ulong;
 
+#endif ////////////
+
 #ifndef __BIT_TYPES_DEFINED__
 #define __BIT_TYPES_DEFINED__
 
+// Modification: ASSEMBLER
+#if !defined(__ASSEMBLER__) ///////////////
 typedef		__u8		u_int8_t;
 typedef		__s8		int8_t;
 typedef		__u16		u_int16_t;
 typedef		__s16		int16_t;
 typedef		__u32		u_int32_t;
 typedef		__s32		int32_t;
-
+#endif //////////// end of modification
 #endif /* !(__BIT_TYPES_DEFINED__) */
 
+// Modification: ASSEMBLER
+#if !defined(__ASSEMBLER__) ///////////////
 typedef		__u8		uint8_t;
 typedef		__u16		uint16_t;
 typedef		__u32		uint32_t;
@@ -110,14 +143,21 @@ typedef		__u64		uint64_t;
 typedef		__u64		u_int64_t;
 typedef		__s64		int64_t;
 #endif
+#endif //////////// end of modification
 
 #endif /* __KERNEL_STRICT_NAMES */
+
+
+// Modification: ASSEMBLER
+#if !defined(__ASSEMBLER__) ///////////////
 
 #if defined(CONFIG_USE_STDINT) && defined(__INT64_TYPE__)
 typedef		__UINT64_TYPE__	uint64_t;
 typedef		__UINT64_TYPE__	u_int64_t;
 typedef		__INT64_TYPE__		int64_t;
 #endif
+
+#endif //////////// end of modification
 
 /*
  * Below are truly Linux-specific types that should never collide with
@@ -133,6 +173,10 @@ typedef		__INT64_TYPE__		int64_t;
 #else
 #define __bitwise
 #endif
+
+
+// Modification: ASSEMBLER
+#if !defined(__ASSEMBLER__) ///////////////
 
 typedef __u16 __bitwise __le16;
 typedef __u16 __bitwise __be16;
@@ -155,6 +199,9 @@ struct ustat {
 	char			f_fpack[6];
 };
 typedef unsigned char	BOOLEAN;
+
+#endif //////////// end of modification
+
 #define	VOLATILE volatile
 
 #endif /* _LINUX_TYPES_H */

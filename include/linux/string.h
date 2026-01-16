@@ -8,17 +8,25 @@
 extern "C" {
 #endif
 
+// Modification: ASSEMBLER
+#if !defined(__ASSEMBLER__) ///////////////
+
 extern char * ___strtok;
 extern char * strpbrk(const char *,const char *);
 extern char * strtok(char *,const char *);
 extern char * strsep(char **,const char *);
 extern __kernel_size_t strspn(const char *,const char *);
 
+#endif //////////// end of modification
 
 /*
  * Include machine specific inline routines
  */
 #include <asm/string.h>
+
+
+// Modification: ASSEMBLER
+#if !defined(__ASSEMBLER__) ///////////////
 
 #ifndef __HAVE_ARCH_BCOPY
 char *bcopy(const char *src, char *dest, int count);
@@ -57,7 +65,13 @@ extern char * strchr(const char *,int);
 #ifndef __HAVE_ARCH_STRRCHR
 extern char * strrchr(const char *,int);
 #endif
+
+#endif //////////// end of modification
 #include <linux/linux_string.h>
+
+// Modification: ASSEMBLER
+#if !defined(__ASSEMBLER__) ///////////////
+
 #ifndef __HAVE_ARCH_STRSTR
 extern char * strstr(const char *,const char *);
 #endif
@@ -98,6 +112,8 @@ void *memchr_inv(const void *, int, size_t);
 
 unsigned long ustrtoul(const char *cp, char **endp, unsigned int base);
 unsigned long long ustrtoull(const char *cp, char **endp, unsigned int base);
+
+#endif //////////// end of modification
 
 #ifdef __cplusplus
 }

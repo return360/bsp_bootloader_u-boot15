@@ -22,11 +22,17 @@
 /*
  * These typedefs need to be handled better.
  */
+
+// Modification: ASSEMBLER
+#if !defined(__ASSEMBLER__) ///////////////
+
 typedef uint32_t	Elf32_Addr;	/* Unsigned program address */
 typedef uint32_t	Elf32_Off;	/* Unsigned file offset */
 typedef int32_t		Elf32_Sword;	/* Signed large integer */
 typedef uint32_t	Elf32_Word;	/* Unsigned large integer */
 typedef uint16_t	Elf32_Half;	/* Unsigned medium integer */
+
+#endif //////////// end of modification
 
 /* e_ident[] identification indexes */
 #define EI_MAG0		0		/* file ID */
@@ -84,6 +90,10 @@ typedef uint16_t	Elf32_Half;	/* Unsigned medium integer */
 		      (ehdr).e_ident[EI_MAG2] == ELFMAG2 && \
 		      (ehdr).e_ident[EI_MAG3] == ELFMAG3)
 
+// Modification: ASSEMBLER
+#if !defined(__ASSEMBLER__) ///////////////
+
+
 /* ELF Header */
 typedef struct elfhdr{
 	unsigned char	e_ident[EI_NIDENT]; /* ELF Identification */
@@ -102,6 +112,8 @@ typedef struct elfhdr{
 	Elf32_Half	e_shstrndx;	/* section header table's "section
 					   header string table" entry offset */
 } Elf32_Ehdr;
+
+#endif //////////// end of modification
 
 /* e_type */
 #define ET_NONE		0		/* No file type */
@@ -205,6 +217,9 @@ typedef struct elfhdr{
 #define EV_CURRENT	1		/* Current */
 #define EV_NUM		2		/* number of versions */
 
+// Modification: ASSEMBLER
+#if !defined(__ASSEMBLER__) ///////////////
+
 /* Section Header */
 typedef struct {
 	Elf32_Word	sh_name;	/* name - index into section header
@@ -219,6 +234,8 @@ typedef struct {
 	Elf32_Word	sh_addralign;	/* address alignment */
 	Elf32_Word	sh_entsize;	/* section entry size */
 } Elf32_Shdr;
+
+#endif //////////// end of modification
 
 /* Special Section Indexes */
 #define SHN_UNDEF	0		/* undefined */
@@ -315,6 +332,9 @@ typedef struct {
 #define GRP_MASKOS	0x0ff00000	/* Mask OS specific flags */
 #define GRP_MASKPROC	0xf0000000	/* Mask processor specific flags */
 
+// Modification: ASSEMBLER
+#if !defined(__ASSEMBLER__) ///////////////
+
 /* Symbol Table Entry */
 typedef struct elf32_sym {
 	Elf32_Word	st_name;	/* name - index into string table */
@@ -324,6 +344,8 @@ typedef struct elf32_sym {
 	unsigned char	st_other;	/* 0 - no defined meaning */
 	Elf32_Half	st_shndx;	/* section header index */
 } Elf32_Sym;
+
+#endif //////////// end of modification
 
 /* Symbol table index */
 #define STN_UNDEF	0		/* undefined */
@@ -364,6 +386,9 @@ typedef struct elf32_sym {
 #define STV_PROTECTED	3		/* Not preemptible, not exported */
 
 
+// Modification: ASSEMBLER
+#if !defined(__ASSEMBLER__) ///////////////
+
 /* Relocation entry with implicit addend */
 typedef struct
 {
@@ -379,10 +404,15 @@ typedef struct
 	Elf32_Sword	r_addend;
 } Elf32_Rela;
 
+#endif //////////// end of modification
+
 /* Extract relocation info - r_info */
 #define ELF32_R_SYM(i)		((i) >> 8)
 #define ELF32_R_TYPE(i)		((unsigned char) (i))
 #define ELF32_R_INFO(s,t)	(((s) << 8) + (unsigned char)(t))
+
+// Modification: ASSEMBLER
+#if !defined(__ASSEMBLER__) ///////////////
 
 /* Program Header */
 typedef struct {
@@ -395,6 +425,9 @@ typedef struct {
 	Elf32_Word	p_flags;	/* flags */
 	Elf32_Word	p_align;	/* memory alignment */
 } Elf32_Phdr;
+
+#endif //////////// end of modification
+
 
 /* Segment types - p_type */
 #define PT_NULL		0		/* unused */
@@ -417,7 +450,11 @@ typedef struct {
 #define PF_R		0x4		/* Readable */
 #define PF_MASKOS	0x0ff00000	/* OS specific segment flags */
 #define PF_MASKPROC	0xf0000000	/* reserved bits for processor */
-					/*  specific segment flags */
+		
+// Modification: ASSEMBLER
+#if !defined(__ASSEMBLER__) ///////////////
+
+			/*  specific segment flags */
 /* Dynamic structure */
 typedef struct
 {
@@ -430,6 +467,8 @@ typedef struct
 } Elf32_Dyn;
 
 extern Elf32_Dyn	_DYNAMIC[];
+
+#endif //////////// end of modification
 
 /* Dynamic Array Tags - d_tag */
 #define DT_NULL		0		/* marks end of _DYNAMIC array */
@@ -480,8 +519,13 @@ extern Elf32_Dyn	_DYNAMIC[];
 #define DF_BIND_NOW	0x08		/* No lazy binding for this object */
 #define DF_STATIC_TLS	0x10		/* Static thread local storage */
 
+// Modification: ASSEMBLER
+#if !defined(__ASSEMBLER__) ///////////////
+
 /* Standard ELF hashing function */
 unsigned long elf_hash(const unsigned char *name);
+
+#endif //////////// end of modification
 
 #define ELF_TARG_VER	1	/* The ver for which this code is intended */
 
@@ -570,6 +614,18 @@ unsigned long elf_hash(const unsigned char *name);
    that may still be in object files.  */
 #define R_PPC_TOC16             255
 
+// MODIFICATION / ADDITION: from u-boot23
+ /* ARM relocs */
+#define R_ARM_NONE		0	/* No reloc */
+#define R_ARM_RELATIVE		23	/* Adjust by program base */
+
+
+// Modification: ASSEMBLER
+#if !defined(__ASSEMBLER__) ///////////////
+
+
 int valid_elf_image(unsigned long addr);
+
+#endif //////////// end of modification
 
 #endif /* _ELF_H */

@@ -117,7 +117,10 @@ typedef unsigned int uint;
 #include <stdint.h>
 #else
 /* Type for `void *' pointers. */
+// MODIFICATION: for Assembler
+#if !defined(__ASSEMBLER__) ///////////////
 typedef unsigned long int uintptr_t;
+#endif
 #endif
 
 #include <linux/string.h>

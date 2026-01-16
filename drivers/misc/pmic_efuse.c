@@ -95,7 +95,12 @@ u32 SCI_GetTickCount(void);
 #define jiffies (get_timer_masked())	/* return msec count */
 #define msecs_to_jiffies(a) (a)
 #define time_after(a,b)	((int)(b) - (int)(a) < 0)
+
+// MODIFICATION: to not re-define
+//#define cpu_relax()
+#ifndef cpu_relax
 #define cpu_relax()
+#endif
 
 #define ANA_REGS_EFUSE_BASE ANA_EFS_BASE
 #define EFUSE_BLOCK_MAX                 ( 32 )

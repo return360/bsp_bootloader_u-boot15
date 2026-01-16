@@ -60,3 +60,7 @@ obj-$(CONFIG_DEBUG_LL)	+= debug.o
 ifneq (,$(findstring -mabi=aapcs-linux,$(PLATFORM_CPPFLAGS)))
 extra-y	+= eabi_compat.o
 endif
+
+# MODIFICATION: Addition
+extra-$(CONFIG_EFI) += $(EFI_CRT0) $(EFI_RELOC)
+#extra-y += $(EFI_CRT0) $(EFI_RELOC)

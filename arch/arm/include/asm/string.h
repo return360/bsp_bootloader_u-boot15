@@ -8,6 +8,10 @@
  * optimised inline asm versions are not small.
  */
 
+// Modification: ASSEMBLER
+#if !defined(__ASSEMBLER__) ///////////////
+
+
 #undef __HAVE_ARCH_STRRCHR
 extern char * strrchr(const char * s, int c);
 
@@ -48,6 +52,10 @@ extern void __memzero(void *ptr, __kernel_size_t n);
 #define memzero(p,n) ({ if ((n) != 0) __memzero((p),(n)); (p); })
 #else
 extern void memzero(void *ptr, __kernel_size_t n);
+
+
+#endif //////////// end of modification
+
 #endif
 
 #endif

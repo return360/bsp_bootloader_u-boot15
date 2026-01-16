@@ -4,7 +4,14 @@
 #include <asm/types.h>
 #include <asm-generic/bitsperlong.h>
 
+// MODIFICATION: so compiler doesn't complain / no error
+#ifdef BIT
+#undef BIT
+#endif
+//
 #define BIT(nr)			(1UL << (nr))
+
+
 #define BIT_MASK(nr)		(1UL << ((nr) % BITS_PER_LONG))
 #define BIT_WORD(nr)		((nr) / BITS_PER_LONG)
 

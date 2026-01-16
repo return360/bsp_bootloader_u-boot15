@@ -16,7 +16,10 @@ arch-$(CONFIG_CPU_SA1100)	=-march=armv4
 arch-$(CONFIG_CPU_PXA)		=
 arch-$(CONFIG_CPU_ARM1136)	=-march=armv5
 arch-$(CONFIG_CPU_ARM1176)	=-march=armv5t
+# MODIFICATION
 arch-$(CONFIG_CPU_V7)		=$(call cc-option, -march=armv7-a, -march=armv5)
+#arch-$(CONFIG_CPU_V7)		=-march=armv7-a
+
 arch-$(CONFIG_ARM64)		=-march=armv8-a
 
 # Evaluate arch cc-option calls now
@@ -73,6 +76,7 @@ head-y := $(CONFIG_SPL_START_S_PATH:"%"=%)/start.o
 endif
 endif
 
+# TO
 libs-y += arch/arm/cpu/$(CPU)/
 libs-y += arch/arm/cpu/
 libs-y += arch/arm/lib/

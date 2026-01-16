@@ -59,6 +59,9 @@ int call_count;
 int verbose;	/* Verbosity level 0=none, 1=warn, 2=notice, 3=info, 4=debug */
 unsigned long text_offset;		/* text address of first function */
 
+// MODIFICATION: adding here for returning
+regex_t g_regex;
+
 static void outf(int level, const char *fmt, ...)
 		__attribute__ ((format (__printf__, 2, 3)));
 #define error(fmt, b...) outf(0, fmt, ##b)
@@ -432,8 +435,9 @@ static int read_trace_config(FILE *fin)
 
 		err = regcomp(&line->regex, tok, REG_NOSUB);
 		if (err) {
+                        g_regex.re_nsub = line->regex.re_nsub;
 			free(line);
-			return regex_report_error(&line->regex, err, "compile",
+                        return regex_report_error(&g_regex, err, "compile",
 						  tok);
 		}
 

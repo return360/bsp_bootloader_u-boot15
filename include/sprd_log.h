@@ -110,7 +110,11 @@ void flush_log_buffer(void);
 
 #else
 
+// MODIFICATION: include guard for write_log_last
 # if defined(CONFIG_LOG_2_EMMC)
+#ifdef write_log_last
+#undef write_log_last
+#endif
 #define write_log_last() do {		\
 	init_log_struct();		\
 	init_log_partition_hdr();	\

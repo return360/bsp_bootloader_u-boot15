@@ -5,18 +5,32 @@
 # SPDX-License-Identifier:	GPL-2.0+
 #
 
+# MODIFICATION: leaving this out and hopeing it doesn't explode... can always copy it from "sunxi" subdirectory though,
+# if this doesn't work
 extra-y	:= start.o
 
+# MODIFICATION: cache_v7_asm.c (or something similar) doesn't appear to exist... lets hope it still works
 obj-y	+= cache_v7.o cache_v7_asm.o
+#obj-y	+= cache_v7.o
 
 obj-y	+= cpu.o cp15.o
 obj-y	+= syslib.o
 
-ifneq ($(CONFIG_AM43XX)$(CONFIG_AM33XX)$(CONFIG_OMAP44XX)$(CONFIG_OMAP54XX)$(CONFIG_TEGRA)$(CONFIG_MX6)$(CONFIG_TI81XX)$(CONFIG_AT91FAMILY)$(CONFIG_SUNXI)$(CONFIG_ARCH_SOCFPGA),)
-ifneq ($(CONFIG_SKIP_LOWLEVEL_INIT),y)
+# TODO: might have to find a better way to include this.
+# MODIFICATION: leaving out if conditions
+#ifneq ($(CONFIG_AM43XX)$(CONFIG_AM33XX)$(CONFIG_OMAP44XX)$(CONFIG_OMAP54XX)$(CONFIG_TEGRA)$#(CONFIG_MX6)$(CONFIG_TI81XX)$(CONFIG_AT91FAMILY)$(CONFIG_SUNXI)$(CONFIG_ARCH_SOCFPGA),)
+#ifneq ($(CONFIG_SKIP_LOWLEVEL_INIT),y)
+#obj-y	+= lowlevel_init.o
+#endif
+#endif
 obj-y	+= lowlevel_init.o
-endif
-endif
+
+# MODIFICATION / ADDITION: adding smc from u-boot23
+# for now: adding by default
+# TODO: figure out where we could configure this
+# as optional
+#obj-$(CONFIG_ARM_SMCCC)	+= smccc-call.o
+obj-y	+= smccc-call.o
 
 ifneq ($(CONFIG_ARMV7_NONSEC),)
 obj-y	+= nonsec_virt.o

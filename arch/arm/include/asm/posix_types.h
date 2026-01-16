@@ -19,6 +19,9 @@
  * assume GCC is being used.
  */
 
+// Modification: ASSEMBLER
+#if !defined(__ASSEMBLER__) ///////////////
+
 typedef unsigned short		__kernel_dev_t;
 typedef unsigned long		__kernel_ino_t;
 typedef unsigned short		__kernel_mode_t;
@@ -63,6 +66,10 @@ typedef struct {
 	int	__val[2];
 #endif /* !defined(__KERNEL__) && !defined(__USE_ALL) */
 } __kernel_fsid_t;
+
+// end of MODIFICATION
+#endif
+///////////////////////////////////////
 
 #if defined(__KERNEL__) || !defined(__GLIBC__) || (__GLIBC__ < 2)
 

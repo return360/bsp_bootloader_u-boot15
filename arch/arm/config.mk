@@ -13,6 +13,12 @@ CONFIG_STANDALONE_LOAD_ADDR = 0xc100000
 endif
 endif
 
+
+CFLAGS_NON_EFI := -fno-pic $(FIXED_REG) -ffunction-sections -fdata-sections \
+		  -fstack-protector-strong
+CFLAGS_EFI := -fpic -fshort-wchar
+
+
 LDFLAGS_FINAL += --gc-sections
 PLATFORM_RELFLAGS += -ffunction-sections -fdata-sections \
 		     -fno-common -ffixed-r9
@@ -101,11 +107,19 @@ endif
 
 ifneq ($(CONFIG_SPL_BUILD),y)
 # Check that only R_ARM_RELATIVE relocations are generated.
-ALL-y += checkarmreloc
+
+# MODIFICATION
+#ALL-y += checkarmreloc
+INPUTS-y += checkarmreloc
+##################################
+
 # The movt / movw can hardcode 16 bit parts of the addresses in the
 # instruction. Relocation is not supported for that case, so disable
 # such usage by requiring word relocations.
 PLATFORM_CPPFLAGS += $(call cc-option, -mword-relocations)
+# MODIFICATION / ADDITION: #####
+PLATFORM_CPPFLAGS += $(call cc-option, -fno-pic)
+################################
 endif
 
 # limit ourselves to the sections we want in the .bin.
@@ -133,3 +147,8 @@ ALL-y += u-boot.imx
 endif
 endif
 endif
+
+# MODIFICATION / ADDITION: from u-boot23
+EFI_LDS := elf_arm_efi.lds
+EFI_CRT0 := crt0_arm_efi.o
+EFI_RELOC := reloc_arm_efi.o

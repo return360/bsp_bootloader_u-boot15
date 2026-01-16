@@ -1,6 +1,9 @@
 #ifndef __ASM_ARM_TYPES_H
 #define __ASM_ARM_TYPES_H
 
+// Modification: ASSEMBLER
+#if !defined(__ASSEMBLER__) ///////////////
+
 typedef unsigned short umode_t;
 
 /*
@@ -55,4 +58,7 @@ typedef unsigned long phys_size_t;
 #endif /* __KERNEL__ */
 
 typedef unsigned long resource_size_t;
+
+#endif // end of MODIFICATION
+
 #endif

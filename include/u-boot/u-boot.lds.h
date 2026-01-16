@@ -14,9 +14,15 @@
 	((major > LD_MAJOR) || (major == LD_MAJOR && minor <= LD_MINOR))
 
 /*
+  TODO: / HINT: LD is 1.12 ( androideabi 4.9) 
+  TODO: --> should try linking to the NDK.
+*/ 
+
+/*
  * Linker versions prior to 2.16 don't understand the builtin
  * functions SORT_BY_ALIGNMENT() and SORT_BY_NAME(), so disable these
  */
+
 #if !LD_AT_LEAST(2, 16)
 # define SORT_BY_ALIGNMENT(x) x
 # define SORT_BY_NAME(x) x

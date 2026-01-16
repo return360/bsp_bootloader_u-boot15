@@ -42,6 +42,9 @@
 #define __cpu_to_be16(x) ((__force __be16)__swab16((x)))
 #define __be16_to_cpu(x) __swab16((__force __u16)(__be16)(x))
 
+// Modification: ASSEMBLER
+#if !defined(__ASSEMBLER__) ///////////////
+
 static inline __le64 __cpu_to_le64p(const __u64 *p)
 {
 	return (__force __le64)*p;
@@ -90,6 +93,9 @@ static inline __u16 __be16_to_cpup(const __be16 *p)
 {
 	return __swab16p((__u16 *)p);
 }
+
+#endif //////////// end of modification
+
 #define __cpu_to_le64s(x) do { (void)(x); } while (0)
 #define __le64_to_cpus(x) do { (void)(x); } while (0)
 #define __cpu_to_le32s(x) do { (void)(x); } while (0)

@@ -7,6 +7,9 @@
 
 # core
 ifndef CONFIG_SPL_BUILD
+# Modification: added board_init
+obj-y += board_init.o
+################################
 obj-y += main.o
 obj-y += exports.o
 obj-y += hash.o

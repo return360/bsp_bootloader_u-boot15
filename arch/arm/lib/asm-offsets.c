@@ -14,6 +14,8 @@
 
 #include <common.h>
 #include <linux/kbuild.h>
+// MODIFICATION: adding header
+#include <linux/arm-smccc.h>
 
 #if defined(CONFIG_MX25) || defined(CONFIG_MX27) || defined(CONFIG_MX35) \
 	|| defined(CONFIG_MX51) || defined(CONFIG_MX53)
@@ -196,6 +198,19 @@ int main(void)
 	DEFINE(PLL_DP_HFS_OP, offsetof(struct dpll, dp_hfs_op));
 	DEFINE(PLL_DP_HFS_MFD, offsetof(struct dpll, dp_hfs_mfd));
 	DEFINE(PLL_DP_HFS_MFN, offsetof(struct dpll, dp_hfs_mfn));
+#endif
+
+// MODIFICATION: / ADDITION : from u-boot23, for when "arm_smccc_res"
+// is used -- vendor-specific "quirks"
+// right now this param doesn't seem to be used.
+// TODO: but we should probably still add those defines, so nothing
+// breaks
+// MODIFICATION: adding by default
+#ifdef CONFIG_ARM_SMCCC (no ifdef)
+	DEFINE(ARM_SMCCC_RES_X0_OFFS, offsetof(struct arm_smccc_res, a0));
+	DEFINE(ARM_SMCCC_RES_X2_OFFS, offsetof(struct arm_smccc_res, a2));
+	DEFINE(ARM_SMCCC_QUIRK_ID_OFFS, offsetof(struct arm_smccc_quirk, id));
+	DEFINE(ARM_SMCCC_QUIRK_STATE_OFFS, offsetof(struct arm_smccc_quirk, state));
 #endif
 
 	return 0;

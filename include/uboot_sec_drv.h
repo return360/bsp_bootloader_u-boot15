@@ -44,6 +44,9 @@
 
 #define TEESMC_FUNC_MASK                0xFFFF
 
+
+// TODO: find out where the corresponding "ARM_SMCCC_" are used
+// TEESMC_IS_FAST_CALL, ARM_SMCCC_IS_FAST_CALL in arm-smccc.h
 #define TEESMC_IS_FAST_CALL(smc_val)    ((smc_val) & TEESMC_FAST_CALL)
 #define TEESMC_IS_64(smc_val)           ((smc_val) & TEESMC_64)
 #define TEESMC_FUNC_NUM(smc_val)        ((smc_val) & TEESMC_FUNC_MASK)

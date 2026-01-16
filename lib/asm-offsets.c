@@ -28,6 +28,12 @@ int main(void)
 	DEFINE(GD_SIZE, sizeof(struct global_data));
 
 	DEFINE(GD_BD, offsetof(struct global_data, bd));
+
+        //MODIFICATION / ADDITION: (added from u-boot23)
+        //MODIFICATION: commenting it out for debugging
+        // DEFINE(GD_FLAGS, offsetof(struct global_data, flags));
+        //////////////////////////////////////////////////////
+        
 #ifdef CONFIG_SYS_MALLOC_F_LEN
 	DEFINE(GD_MALLOC_BASE, offsetof(struct global_data, malloc_base));
 #endif
@@ -37,6 +43,12 @@ int main(void)
 	DEFINE(GD_RELOC_OFF, offsetof(struct global_data, reloc_off));
 
 	DEFINE(GD_START_ADDR_SP, offsetof(struct global_data, start_addr_sp));
+
+        //MODIFICATION / ADDITION: (added from u-boot23)
+        //MODIFICATION: commenting it out for debugging
+        // DEFINE(GD_NEW_GD, offsetof(struct global_data, new_gd));
+	// DEFINE(GD_ENV_ADDR, offsetof(struct global_data, env_addr));
+        /////////////////////////////////////////////////////////////
 
 	return 0;
 }

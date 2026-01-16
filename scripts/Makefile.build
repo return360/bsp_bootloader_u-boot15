@@ -53,6 +53,8 @@ save-cflags := $(CFLAGS)
 # The filename Kbuild has precedence over Makefile
 kbuild-dir := $(if $(filter /%,$(src)),$(src),$(srctree)/$(src))
 kbuild-file := $(if $(wildcard $(kbuild-dir)/Kbuild),$(kbuild-dir)/Kbuild,$(kbuild-dir)/Makefile)
+
+
 include $(kbuild-file)
 
 # Added for U-Boot
@@ -242,8 +244,12 @@ sub_cmd_record_mcount =					\
 	if [ $(@) != "scripts/mod/empty.o" ]; then	\
 		$(objtree)/scripts/recordmcount $(RECORDMCOUNT_FLAGS) "$(@)";	\
 	fi;
+
+# MODIFICATION: actualize path of source --> not necessary, doesn't appear to get populate dhere
 recordmcount_source := $(srctree)/scripts/recordmcount.c \
 		    $(srctree)/scripts/recordmcount.h
+#recordmcount_source := $(srctree)/../../kernel/kernel-4.14/scripts/recordmcount.c \
+#		    $(srctree)/../../kernel/kernel-4.14/scripts/recordmcount.h
 else
 sub_cmd_record_mcount = set -e ; perl $(srctree)/scripts/recordmcount.pl "$(ARCH)" \
 	"$(if $(CONFIG_CPU_BIG_ENDIAN),big,little)" \
@@ -251,7 +257,10 @@ sub_cmd_record_mcount = set -e ; perl $(srctree)/scripts/recordmcount.pl "$(ARCH
 	"$(OBJDUMP)" "$(OBJCOPY)" "$(CC) $(KBUILD_CFLAGS)" \
 	"$(LD)" "$(NM)" "$(RM)" "$(MV)" \
 	"$(if $(part-of-module),1,0)" "$(@)";
+
+# MODIFICATION: actualize path of source --> not necessary, doesn't appear to get populate dhere
 recordmcount_source := $(srctree)/scripts/recordmcount.pl
+#recordmcount_source := $(srctree)/../../kernel/kernel-4.14/scripts/recordmcount.pl
 endif
 cmd_record_mcount = 						\
 	if [ "$(findstring -pg,$(_c_flags))" = "-pg" ]; then	\
@@ -271,8 +280,13 @@ define rule_cc_o_c
 	mv -f $(dot-target).tmp $(dot-target).cmd
 endef
 
+# TODO: this is where build fails -- prob. because recordmcount_source doesn't get populated.
+# TODO: should try to modify dir above for recordmcount_source to point to kernel source
 # Built-in and composite module parts
 $(obj)/%.o: $(src)/%.c $(recordmcount_source) FORCE
+	# MODIFICATION: for debbuging
+	$(warning recordmcount_source : $(recordmcount_source) )
+	#
 	$(call cmd,force_checksrc)
 	$(call if_changed_rule,cc_o_c)
 
